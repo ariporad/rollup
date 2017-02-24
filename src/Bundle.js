@@ -388,14 +388,14 @@ export default class Bundle {
 							const name = Object.keys( module.imports )
 								.find( name => {
 									const declaration = module.imports[ name ];
-									return declaration.source === source;
+									return declaration.source.endsWith(source);
 								});
 
 							const declaration = module.imports[ name ].specifier.parent;
 
 							module.error({
 								code: 'CANNOT_IMPORT_SELF',
-								message: `A module cannot import itself`
+								message: `A module cannot import itself: ${source}`
 							}, declaration.start );
 						}
 
